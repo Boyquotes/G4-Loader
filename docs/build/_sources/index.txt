@@ -1,5 +1,8 @@
-G4 Loader Docs – *master* branch
-================================
+. G4 Loader documentation master file, created by
+   sphinx-quickstart on Sun Dec 15 00:58:51 2019.
+
+Welcome to G4 Loader's documentation!
+=====================================
 
 .. only:: not i18n
 
@@ -14,6 +17,8 @@ for your topic of interest. You can also use the search function in the top left
 corner.
 
 But unfortunately, it's still up coming.
+
+Contents:
 
 .. toctree::
    :maxdepth: 1
@@ -33,3 +38,10 @@ But unfortunately, it's still up coming.
    :name: sec-class-ref
 
    grammar/index
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

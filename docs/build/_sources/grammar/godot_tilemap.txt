@@ -67,10 +67,12 @@ C struct for tile:
 
 A 1D 32 bits int array in decimal digital string.
 
+.. image:: img/unity-project-organization-example.png
+
 +-----------------------------+-----------------------------------------------+--------------------------------------------------------------------+
 | Node Data                   | Data Formatted                                | Remarks                                                            |
 +=============================+===============================================+====================================================================+
-| tile_set = ExtResource( 2 ) | ExtResource(2) = tset1.tres                   | Tileset  .. image:: img/unity-project-organization-example.png     |
+| tile_set = ExtResource( 2 ) | ExtResource(2) = tset1.tres                   | Tileset                                                            |
 +-----------------------------+-----------------------------------------------+------------------------------------+-------------------------------+
 |  PoolIntArray[0:2]          | 0: [x: 0, y: 0] - PosKey                      | Postion: x, y = 0, 0                                               |
 |  0, 1, 0                    | 1: [id: 1]      - Cell.struct.id              | Tileset's tile id: 1                                               |
