@@ -1,4 +1,4 @@
-Editor manual
+Grammar Reference
 =============
 
 .. toctree::

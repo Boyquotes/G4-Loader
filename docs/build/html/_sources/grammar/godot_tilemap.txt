@@ -1,7 +1,7 @@
 .. _unity_to_godot:
 
 ..    references :
-..    https://docs.godotengine.org/en/latest/development/file_formats/tscn.html
+..    `Godot File Format - TSCN<https://docs.godotengine.org/en/latest/development/file_formats/tscn.html>`
 
 Godot Tilemap Format
 ======================
@@ -17,6 +17,7 @@ see `Godot Doc: TSCN File Format<https://docs.godotengine.org/en/latest/developm
 TileMap in TSCN file example:
 
 ::
+
     [ext_resource path="res://autoset.tres" type="TileSet" id=1]
     [ext_resource path="res://tset1.tres" type="TileSet" id=2]
 
@@ -34,14 +35,16 @@ tile_date
 
 TileMap is handled by
 
-::
-    class TileMap : public Node2D
+.. code-block:: cpp
+
+    class TileMap : public Node2D { ... }
 
 see GodotEngin/scene/2d/tile_map.h.
 
 C struct for tile:
 
-::
+.. code-block:: cpp
+
     union PosKey {
         struct {
             int16_t x;
@@ -68,21 +71,22 @@ C struct for tile:
 A 1D 32 bits int array in decimal digital string.
 
 .. image:: img/001-tilemap1.png
+    :width: 800px
 
-+-----------------------------+-----------------------------------------------+--------------------------------------------------------------------+
-| Node Data                   | Data Formatted                                | Remarks                                                            |
-+=============================+===============================================+====================================================================+
-| tile_set = ExtResource( 2 ) | ExtResource(2) = tset1.tres                   | Tileset                                                            |
-+-----------------------------+-----------------------------------------------+------------------------------------+-------------------------------+
-|  PoolIntArray[0:2]          | 0: [x: 0, y: 0] - PosKey                      | Postion: x, y = 0, 0                                               |
-|  0, 1, 0                    | 1: [id: 1]      - Cell.struct.id              | Tileset's tile id: 1                                               |
-|                             | 0: [auto-x: 0, auto-y: 0] -Cell.struct.autox/y| Cell's auto tile id x, y = 0, 0                                    |
-+-----------------------------+-----------------------------------------------+------------------------------------+-------------------------------+
-| PoolIntArray[3:5]           | 0: [x: 1, y: 0] - PosKey                      | Postion: x, y = 1, 0                                               |
-| 1, 1073741824, 0            | 1: [id: 0]      - Cell.struct.id              | Tileset's tile id = 0  ( 1073741824 = 4000 0000h )                 |
-|                             |    [fliph: 0, flipv: 1]                       | flip (x/h, y/v) = 0, 1 ( Why not 04h? )                            |
-|                             | 0: [auto-x: 0, auto-y: 0]                     |                                                                    |
-+-----------------------------+-----------------------------------------------+------------------------------------+-------------------------------+
-| ...                         | 1610612736                                    | 6000 0000h: id, h, v = 0, 1, 1 ?                                   |
-|                             | 65536                                         | 65536: pos(x, y) = 0, 1                                            |
-+-----------------------------+-----------------------------------------------+------------------------------------+-------------------------------+
++------------------------------+-------------------------------------------------+----------------------------------------------------------------+
+|         Node Data            |        Data Formatted                           |            Remarks                                             |
++==============================+=================================================+================================================================+
+| tile_set = ExtResource( 2 )  |      ExtResource(2) = tset1.tres                |           Tileset                                              |
++------------------------------+-------------------------------------------------+----------------------------------------------------------------+
+|   PoolIntArray[0:2]          |   0: [x: 0, y: 0] - PosKey                      |   Postion: x, y = 0, 0                                         |
+| | 0, 1, 0                    | | 1: [id: 1]      - Cell.struct.id              | | Tileset's tile id: 1                                         |
+|                              | | 0: [auto-x: 0, auto-y: 0] -C.struct.autox/y   | | Cell's auto tile id x, y = 0, 0                              |
++------------------------------+-------------------------------------------------+----------------------------------------------------------------+
+|   PoolIntArray[3:5]          |   0: [x: 1, y: 0] - PosKey                      |   Postion: x, y = 1, 0                                         |
+| | 1, 1073741824, 0           | | 1: [id: 0]      - Cell.struct.id              | | Tileset's tile id = 0  ( 1073741824 = 4000 0000h )           |
+|                              | |    [fliph: 0, flipv: 1]                       | | flip (x/h, y/v) = 0, 1 ( Why not 04h? )                      |
+|                              | | 0: [auto-x: 0, auto-y: 0]                     |                                                                |
++------------------------------+-------------------------------------------------+----------------------------------------------------------------+
+| ...                          |   1610612736                                    |   6000 0000h: id, h, v = 0, 1, 1 ?                             |
+|                              | | 65536                                         | | 65536: pos(x, y) = 0, 1                                      |
++------------------------------+-------------------------------------------------+----------------------------------------------------------------+

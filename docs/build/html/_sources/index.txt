@@ -16,7 +16,7 @@ The table of contents in the sidebar should let you easily access the documentat
 for your topic of interest. You can also use the search function in the top left
 corner.
 
-But unfortunately, it's still up coming.
+Doc is still up coming.
 
 Contents:
 
