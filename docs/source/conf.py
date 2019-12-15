@@ -296,4 +296,4 @@ texinfo_documents = [
 
 # html_style = 'g4.css'
 def setup(app):
-    app.add_stylesheet('g4.css')
+    app.add_stylesheet('notes.css')
