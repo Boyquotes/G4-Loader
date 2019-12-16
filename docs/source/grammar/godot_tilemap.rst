@@ -72,7 +72,8 @@ C struct for tile:
     };
 
 
-A 1D 32 bits int array in decimal digital string.
+Tiles are packed in a 1 dimension 32 bits int array represented with decimal
+digital strings.
 
 TileMap data
 
