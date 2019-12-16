@@ -9,3 +9,4 @@ G4 Loader Docs – About
    about
    res_loader
    node2d_loader
+   object
