@@ -91,4 +91,6 @@ MethodInfo and class Object:
 
 ..
 
-This method can be a reference to find out tscn file's lexical token?
+This helps to find will resource are handled.
+
+With this information, can safely figure out parser grammar ?
