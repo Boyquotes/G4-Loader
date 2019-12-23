@@ -1,8 +1,3 @@
-.. _unity_to_godot:
-
-..    references :
-..    `Godot File Format - TSCN <https://docs.godotengine.org/en/latest/development/file_formats/tscn.html>`_
-
 Godot Tilemap Format
 ======================
 
@@ -76,6 +71,7 @@ Tiles are packed in a 1 dimension 32 bits int array represented with decimal
 digital strings.
 
 TileMap data
+------------
 
 .. raw:: html
 
