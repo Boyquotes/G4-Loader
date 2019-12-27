@@ -3,3 +3,4 @@ Godot resource loader for [libGDX game engine](https://en.wikipedia.org/wiki/Lib
 
 - This is only a prototyping project
 
+[doc](https://odys-z.github.io/G4-Loader/)

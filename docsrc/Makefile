@@ -47,6 +47,9 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 	@echo "  coverage   to run coverage check of the documentation (if enabled)"
 
+# reference
+# https://www.docslikecode.com/articles/github-pages-python-sphinx/
+# https://github.com/sphinx-doc/sphinx/issues/3382#issuecomment-470772316
 github:
     @make html
     @cp -a build/html/. ../docs
