@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Godot TRES File Format &mdash; G4 Loader 0.1.0 documentation</title>
+  <title>Godot TileSet(.tres) File Format &mdash; G4 Loader 0.1.0 documentation</title>
   
 
   
@@ -36,6 +36,7 @@
   
     <link rel="top" title="G4 Loader 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="Grammar Reference" href="index.html"/>
+        <link rel="next" title="Godot Autotile Format" href="godot_autotile.html"/>
         <link rel="prev" title="Godot Tilemap Format" href="godot_tilemap.html"/> 
 
   
@@ -87,14 +88,18 @@
             
                 <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../general/index.html">G4 Loader Docs – About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">G4 Loader Docs – General</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Grammar reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Grammar Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="godot_scene.html">Godot TSCN File Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="godot_tilemap.html">Godot Tilemap Format</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Godot TRES File Format</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Godot TileSet(.tres) File Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tileset-resource">TileSet Resource</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="godot_autotile.html">Godot Autotile Format</a></li>
 </ul>
 </li>
 </ul>
@@ -129,7 +134,7 @@
       
           <li><a href="index.html">Grammar Reference</a> &raquo;</li>
       
-    <li>Godot TRES File Format</li>
+    <li>Godot TileSet(.tres) File Format</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -141,8 +146,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="godot-tres-file-format">
-<h1>Godot TRES File Format<a class="headerlink" href="#godot-tres-file-format" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="godot-tileset-tres-file-format">
+<h1>Godot TileSet(.tres) File Format<a class="headerlink" href="#godot-tileset-tres-file-format" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tileset-resource">
+<h2>TileSet Resource<a class="headerlink" href="#tileset-resource" title="Permalink to this headline">¶</a></h2>
+<p>TileSet file (.tres) composed from 2 major parts.</p>
+<p>Part I: referenced resources</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>[gd_resource type=&quot;TileSet&quot; load_steps=7 format=2]
+
+[ext_resource path=&quot;res://asserts/t02.png&quot; type=&quot;Texture&quot; id=1]
+
+[sub_resource type=&quot;NavigationPolygon&quot; id=1]
+vertices = PoolVector2Array( 0, 0, 96, 0, 88, 8, 96, 24, 80, 64, 64, 80, 32, 96, 8, 96, 0, 104 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5, 6, 7, 8 ) ]
+[sub_resource type=&quot;ConvexPolygonShape2D&quot; id=2]
+points = PoolVector2Array( 104, 0, 104, 24, 120, 40, 128, 56, 120, 88, 88, 120, 64, 128, 48, 128, 24, 120, 0, 104, 0, 96, 16, 96, 56, 88, 80, 64, 88, 48, 96, 24, 88, 8, 96, 0 )
+</pre></div>
+</div>
+<p>The NavigationPolygon and ConvexPolygonShape2D are created with &#8220;collition&#8221; and
+&#8220;navigation&#8221; command.</p>
+<a class="reference internal image-reference" href="../_images/002-tileset_shape_polygon.png"><img alt="../_images/002-tileset_shape_polygon.png" src="../_images/002-tileset_shape_polygon.png" style="width: 800px;" /></a>
+<p>Part II: tile definition</p>
+<p>Tiles are defined in &#8220;id/porp-name&#8221; format, all in &#8220;[resource]&#8221; section</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">resource</span><span class="p">]</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;t02.png 0&quot;</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">texture</span> <span class="o">=</span> <span class="n">ExtResource</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">tex_offset</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">modulate</span> <span class="o">=</span> <span class="n">Color</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">region</span> <span class="o">=</span> <span class="n">Rect2</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span> <span class="p">)</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">tile_mode</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">occluder_offset</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">navigation_offset</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">navigation</span> <span class="o">=</span> <span class="n">SubResource</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span>
+<span class="s2">&quot;autotile_coord&quot;</span><span class="p">:</span> <span class="n">Vector2</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">),</span>
+<span class="s2">&quot;one_way&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+<span class="s2">&quot;one_way_margin&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">SubResource</span><span class="p">(</span> <span class="mi">2</span> <span class="p">),</span>
+<span class="s2">&quot;shape_transform&quot;</span><span class="p">:</span> <span class="n">Transform2D</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="p">}</span> <span class="p">]</span>
+<span class="mi">0</span><span class="o">/</span><span class="n">z_index</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>Where <em>shapes</em> are defined as collision shape, and region must be the sprite area.</p>
+</div>
 </div>
 
 
@@ -151,6 +198,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="godot_autotile.html" class="btn btn-neutral float-right" title="Godot Autotile Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="godot_tilemap.html" class="btn btn-neutral" title="Godot Tilemap Format" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -210,8 +259,7 @@
       });
   </script>
   
-    <div class="footer">
-        &copy; Copyright 2019, Odys Zhou.
+    <div class="footer footr">
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
     </div>
 

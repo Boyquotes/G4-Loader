@@ -51,8 +51,8 @@ help:
 # https://www.docslikecode.com/articles/github-pages-python-sphinx/
 # https://github.com/sphinx-doc/sphinx/issues/3382#issuecomment-470772316
 github:
-    @make html
-    @cp -a build/html/. ../docs
+	@make html
+	@cp -a build/html/. ../docs
 
 .PHONY: clean
 clean:

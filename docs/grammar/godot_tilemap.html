@@ -36,7 +36,7 @@
   
     <link rel="top" title="G4 Loader 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="Grammar Reference" href="index.html"/>
-        <link rel="next" title="Godot TRES File Format" href="godot_tileset.html"/>
+        <link rel="next" title="Godot TileSet(.tres) File Format" href="godot_tileset.html"/>
         <link rel="prev" title="Godot TSCN File Format" href="godot_scene.html"/> 
 
   
@@ -88,7 +88,7 @@
             
                 <p class="caption"><span class="caption-text">General</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../general/index.html">G4 Loader Docs – About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">G4 Loader Docs – General</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Grammar reference</span></p>
 <ul class="current">
@@ -97,9 +97,11 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="">Godot Tilemap Format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#tscn">TSCN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tile-date">tile_date</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tilemap-data">TileMap data</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="godot_tileset.html">Godot TRES File Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="godot_tileset.html">Godot TileSet(.tres) File Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="godot_autotile.html">Godot Autotile Format</a></li>
 </ul>
 </li>
 </ul>
@@ -146,7 +148,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="unity-to-godot"></span><div class="section" id="godot-tilemap-format">
+  <div class="section" id="godot-tilemap-format">
 <h1>Godot Tilemap Format<a class="headerlink" href="#godot-tilemap-format" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="tscn">
 <h2>TSCN<a class="headerlink" href="#tscn" title="Permalink to this headline">¶</a></h2>
@@ -203,8 +205,11 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1073741824, 0, 2, 0, 0, 3, 1610612736, 0, 
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>A 1D 32 bits int array in decimal digital string.</p>
-<p>TileMap data</p>
+<p>Tiles are packed in a 1 dimension 32 bits int array represented with decimal
+digital strings.</p>
+</div>
+<div class="section" id="tilemap-data">
+<h2>TileMap data<a class="headerlink" href="#tilemap-data" title="Permalink to this headline">¶</a></h2>
 <table class='reference'>
     <tr><th>Ndoe Data</th>
         <th>Data Formatted</th>
@@ -258,7 +263,7 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1073741824, 0, 2, 0, 0, 3, 1610612736, 0, 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="godot_tileset.html" class="btn btn-neutral float-right" title="Godot TRES File Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="godot_tileset.html" class="btn btn-neutral float-right" title="Godot TileSet(.tres) File Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="godot_scene.html" class="btn btn-neutral" title="Godot TSCN File Format" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -318,8 +323,7 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1073741824, 0, 2, 0, 0, 3, 1610612736, 0, 
       });
   </script>
   
-    <div class="footer">
-        &copy; Copyright 2019, Odys Zhou.
+    <div class="footer footr">
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
     </div>
 
