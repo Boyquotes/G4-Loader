@@ -95,6 +95,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Grammar Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="godot_scene.html">Godot TSCN File Format</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Godot Tilemap Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#map-types">Map Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tile-types">Tile Types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tscn">TSCN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tile-date">tile_date</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tilemap-data">TileMap data</a></li>
@@ -150,6 +152,42 @@
             
   <div class="section" id="godot-tilemap-format">
 <h1>Godot Tilemap Format<a class="headerlink" href="#godot-tilemap-format" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="map-types">
+<h2>Map Types<a class="headerlink" href="#map-types" title="Permalink to this headline">¶</a></h2>
+<p>Map types are</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">MODE_SQUARE</span><span class="p">,</span>
+<span class="n">MODE_ISOMETRIC</span><span class="p">,</span>
+<span class="n">MODE_CUSTOM</span>
+</pre></div>
+</div>
+<p>Map types are defined in scene/2d/tile_map.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TileMap</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Node2D</span> <span class="p">{</span>
+
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">TileMap</span><span class="p">,</span> <span class="n">Node2D</span><span class="p">);</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">enum</span> <span class="n">Mode</span> <span class="p">{</span>
+        <span class="n">MODE_SQUARE</span><span class="p">,</span>
+        <span class="n">MODE_ISOMETRIC</span><span class="p">,</span>
+        <span class="n">MODE_CUSTOM</span>
+    <span class="p">};</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tile-types">
+<h2>Tile Types<a class="headerlink" href="#tile-types" title="Permalink to this headline">¶</a></h2>
+<p>Tile map types are defined as enum in loader, see scene/resources/tile_set.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">TileMode</span> <span class="p">{</span>
+    <span class="n">SINGLE_TILE</span><span class="p">,</span>
+    <span class="n">AUTO_TILE</span><span class="p">,</span>
+    <span class="n">ATLAS_TILE</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>In Godot, &#8220;Map Mode&#8221; and &#8220;Tile Mode&#8221; and can be set in &#8220;scene&#8221; and &#8220;tileset&#8221;
+inspector.</p>
+</div>
 <div class="section" id="tscn">
 <h2>TSCN<a class="headerlink" href="#tscn" title="Permalink to this headline">¶</a></h2>
 <p>Tilemap is a type of TSCN Node2D. For a TSCN Node description, see</p>

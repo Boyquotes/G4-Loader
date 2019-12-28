@@ -96,7 +96,17 @@
 <li class="toctree-l2"><a class="reference internal" href="godot_scene.html">Godot TSCN File Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="godot_tilemap.html">Godot Tilemap Format</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Godot TileSet(.tres) File Format</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#tileset-resource">TileSet Resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tileset-resource">TileSet Resource</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#part-i-referenced-resources">Part I: referenced resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#part-ii-tile-definition">Part II: tile definition</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#loader">Loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#class-tileset">Class TileSet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shapedata">ShapeData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shape2d-subclasses">Shape2D Subclasses</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="godot_autotile.html">Godot Autotile Format</a></li>
@@ -151,7 +161,8 @@
 <div class="section" id="tileset-resource">
 <h2>TileSet Resource<a class="headerlink" href="#tileset-resource" title="Permalink to this headline">¶</a></h2>
 <p>TileSet file (.tres) composed from 2 major parts.</p>
-<p>Part I: referenced resources</p>
+<div class="section" id="part-i-referenced-resources">
+<h3>Part I: referenced resources<a class="headerlink" href="#part-i-referenced-resources" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span>[gd_resource type=&quot;TileSet&quot; load_steps=7 format=2]
 
 [ext_resource path=&quot;res://asserts/t02.png&quot; type=&quot;Texture&quot; id=1]
@@ -166,7 +177,9 @@ points = PoolVector2Array( 104, 0, 104, 24, 120, 40, 128, 56, 120, 88, 88, 120, 
 <p>The NavigationPolygon and ConvexPolygonShape2D are created with &#8220;collition&#8221; and
 &#8220;navigation&#8221; command.</p>
 <a class="reference internal image-reference" href="../_images/002-tileset_shape_polygon.png"><img alt="../_images/002-tileset_shape_polygon.png" src="../_images/002-tileset_shape_polygon.png" style="width: 800px;" /></a>
-<p>Part II: tile definition</p>
+</div>
+<div class="section" id="part-ii-tile-definition">
+<h3>Part II: tile definition<a class="headerlink" href="#part-ii-tile-definition" title="Permalink to this headline">¶</a></h3>
 <p>Tiles are defined in &#8220;id/porp-name&#8221; format, all in &#8220;[resource]&#8221; section</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">resource</span><span class="p">]</span>
 <span class="mi">0</span><span class="o">/</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;t02.png 0&quot;</span>
@@ -189,6 +202,183 @@ points = PoolVector2Array( 104, 0, 104, 24, 120, 40, 128, 56, 120, 88, 88, 120, 
 </pre></div>
 </div>
 <p>Where <em>shapes</em> are defined as collision shape, and region must be the sprite area.</p>
+<p>TODO: sprite</p>
+</div>
+</div>
+<div class="section" id="loader">
+<h2>Loader<a class="headerlink" href="#loader" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class-tileset">
+<h3>Class TileSet<a class="headerlink" href="#class-tileset" title="Permalink to this headline">¶</a></h3>
+<p>scene/resources/tile_set.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TileSet</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Resource</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">TileSet</span><span class="p">,</span> <span class="n">Resource</span><span class="p">);</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">struct</span> <span class="n">ShapeData</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+
+    <span class="k">enum</span> <span class="n">AutotileBindings</span> <span class="p">{</span>
+        <span class="n">BIND_TOPLEFT</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">BIND_TOP</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">BIND_TOPRIGHT</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="p">...</span>
+        <span class="n">BIND_IGNORE_BOTTOMRIGHT</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span>
+    <span class="p">};</span>
+
+    <span class="k">enum</span> <span class="n">TileMode</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+    <span class="k">struct</span> <span class="n">AutotileData</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="k">struct</span> <span class="n">TileData</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">TileData</span><span class="o">&gt;</span> <span class="n">tile_map</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shapedata">
+<h3>ShapeData<a class="headerlink" href="#shapedata" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ShapeData</span> <span class="p">{</span>
+    <span class="n">Ref</span><span class="o">&lt;</span><span class="n">Shape2D</span><span class="o">&gt;</span> <span class="n">shape</span><span class="p">;</span>
+    <span class="n">Transform2D</span> <span class="n">shape_transform</span><span class="p">;</span>
+    <span class="n">Vector2</span> <span class="n">autotile_coord</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">one_way_collision</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">one_way_collision_margin</span><span class="p">;</span>
+
+    <span class="n">ShapeData</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">one_way_collision</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">one_way_collision_margin</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>scene/resources/shape_2d.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Shape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Resource</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">Shape2D</span><span class="p">,</span> <span class="n">Resource</span><span class="p">);</span>
+    <span class="n">OBJ_SAVE_TYPE</span><span class="p">(</span><span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">RID</span> <span class="n">shape</span><span class="p">;</span>
+    <span class="n">real_t</span> <span class="n">custom_bias</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>core/rid.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RID_Data</span> <span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">_id</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">_FORCE_INLINE_</span> <span class="kt">uint32_t</span> <span class="n">get_id</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_id</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">RID_Data</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">RID</span> <span class="p">{</span>
+    <span class="k">mutable</span> <span class="n">RID_Data</span> <span class="o">*</span><span class="n">_data</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">_FORCE_INLINE_</span> <span class="n">RID_Data</span> <span class="o">*</span><span class="n">get_data</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_data</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="n">_FORCE_INLINE_</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">RID</span> <span class="o">&amp;</span><span class="n">p_rid</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_data</span> <span class="o">==</span> <span class="n">p_rid</span><span class="p">.</span><span class="n">_data</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shape2d-subclasses">
+<h3>Shape2D Subclasses<a class="headerlink" href="#shape2d-subclasses" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>CapsuleShape2D</li>
+</ul>
+<p>scene/resources/capsule_shape_2d.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CapsuleShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">CapsuleShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">real_t</span> <span class="n">height</span><span class="p">;</span>
+    <span class="n">real_t</span> <span class="n">radius</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>CircleShape2D</li>
+</ul>
+<p>scene/resources/circle_shape_2d.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CircleShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">CircleShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">real_t</span> <span class="n">radius</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">_update_shape</span><span class="p">();</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ConcavePolygonShape2D</li>
+</ul>
+<p>scene/resources/concave_polygon_shape_2d.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ConcavePolygonShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">ConcavePolygonShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ConvexPolygonShape2D</li>
+</ul>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ConvexPolygonShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">ConvexPolygonShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">Vector</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="o">&gt;</span> <span class="n">points</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>LineShape2D</li>
+</ul>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LineShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">LineShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">Vector2</span> <span class="n">normal</span><span class="p">;</span>
+    <span class="n">real_t</span> <span class="n">d</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>RectangleShape2D</li>
+</ul>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RectangleShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">RectangleShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">Vector2</span> <span class="n">extents</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>SegmentShape2D &amp; RayShape2D</li>
+</ul>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SegmentShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">SegmentShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">Vector2</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">Vector2</span> <span class="n">b</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">RayShape2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape2D</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">RayShape2D</span><span class="p">,</span> <span class="n">Shape2D</span><span class="p">);</span>
+
+    <span class="n">real_t</span> <span class="n">length</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">slips_on_slope</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

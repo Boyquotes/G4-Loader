@@ -1,3 +1,5 @@
+.. For RST quick reference, see https://docutils.sourceforge.io/docs/user/rst/quickref.html
+
 . G4 Loader documentation master file, created by
    sphinx-quickstart on Sun Dec 15 00:58:51 2019.
 

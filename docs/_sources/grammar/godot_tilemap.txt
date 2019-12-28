@@ -1,6 +1,51 @@
 Godot Tilemap Format
 ======================
 
+Map Types
+----------
+
+Map types are
+
+::
+
+        MODE_SQUARE,
+        MODE_ISOMETRIC,
+        MODE_CUSTOM
+
+Map types are defined in scene/2d/tile_map.h
+
+.. code-block:: cpp
+
+    class TileMap : public Node2D {
+
+        GDCLASS(TileMap, Node2D);
+
+    public:
+        enum Mode {
+            MODE_SQUARE,
+            MODE_ISOMETRIC,
+            MODE_CUSTOM
+        };
+        ...
+..
+
+Tile Types
+----------
+
+Tile map types are defined as enum in loader, see scene/resources/tile_set.h
+
+.. code-block:: cpp
+
+    enum TileMode {
+        SINGLE_TILE,
+        AUTO_TILE,
+        ATLAS_TILE
+    };
+..
+
+In Godot, "Map Mode" and "Tile Mode" and can be set in "scene" and "tileset"
+inspector.
+
 TSCN
 ----
 
