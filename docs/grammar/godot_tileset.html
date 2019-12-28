@@ -101,10 +101,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#part-ii-tile-definition">Part II: tile definition</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#loader">Loader</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-in-tileset-loader">Data in TileSet Loader</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#class-tileset">Class TileSet</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#shapedata">ShapeData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#shape2d-subclasses">Shape2D Subclasses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autotiledata">AutotileData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tiledata">TileData</a></li>
 </ul>
 </li>
 </ul>
@@ -205,8 +207,8 @@ points = PoolVector2Array( 104, 0, 104, 24, 120, 40, 128, 56, 120, 88, 88, 120, 
 <p>TODO: sprite</p>
 </div>
 </div>
-<div class="section" id="loader">
-<h2>Loader<a class="headerlink" href="#loader" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-in-tileset-loader">
+<h2>Data in TileSet Loader<a class="headerlink" href="#data-in-tileset-loader" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="class-tileset">
 <h3>Class TileSet<a class="headerlink" href="#class-tileset" title="Permalink to this headline">¶</a></h3>
 <p>scene/resources/tile_set.h</p>
@@ -236,7 +238,7 @@ points = PoolVector2Array( 104, 0, 104, 24, 120, 40, 128, 56, 120, 88, 88, 120, 
 </div>
 </div>
 <div class="section" id="shapedata">
-<h3>ShapeData<a class="headerlink" href="#shapedata" title="Permalink to this headline">¶</a></h3>
+<span id="shape-data"></span><h3>ShapeData<a class="headerlink" href="#shapedata" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ShapeData</span> <span class="p">{</span>
     <span class="n">Ref</span><span class="o">&lt;</span><span class="n">Shape2D</span><span class="o">&gt;</span> <span class="n">shape</span><span class="p">;</span>
     <span class="n">Transform2D</span> <span class="n">shape_transform</span><span class="p">;</span>
@@ -374,6 +376,110 @@ points = PoolVector2Array( 104, 0, 104, 24, 120, 40, 128, 56, 120, 88, 88, 120, 
 
     <span class="n">real_t</span> <span class="n">length</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">slips_on_slope</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="autotiledata">
+<span id="autotile-data"></span><h3>AutotileData<a class="headerlink" href="#autotiledata" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">AutotileData</span> <span class="p">{</span>
+    <span class="n">BitmaskMode</span> <span class="n">bitmask_mode</span><span class="p">;</span>
+    <span class="n">Size2</span> <span class="n">size</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">spacing</span><span class="p">;</span>
+    <span class="n">Vector2</span> <span class="n">icon_coord</span><span class="p">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="p">,</span> <span class="kt">uint32_t</span><span class="o">&gt;</span> <span class="n">flags</span><span class="p">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="p">,</span> <span class="n">Ref</span><span class="o">&lt;</span><span class="n">OccluderPolygon2D</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">occluder_map</span><span class="p">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="p">,</span> <span class="n">Ref</span><span class="o">&lt;</span><span class="n">NavigationPolygon</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">navpoly_map</span><span class="p">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">priority_map</span><span class="p">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">z_index_map</span><span class="p">;</span>
+
+    <span class="c1">// Default size to prevent invalid value</span>
+    <span class="k">explicit</span> <span class="nf">AutotileData</span><span class="p">()</span> <span class="o">:</span>
+            <span class="n">bitmask_mode</span><span class="p">(</span><span class="n">BITMASK_2X2</span><span class="p">),</span>
+            <span class="n">size</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span>
+            <span class="n">spacing</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">icon_coord</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>where BitmaskMode is also defined in tile_set.h</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">BitmaskMode</span> <span class="p">{</span>
+    <span class="n">BITMASK_2X2</span><span class="p">,</span>
+    <span class="n">BITMASK_3X3_MINIMAL</span><span class="p">,</span>
+    <span class="n">BITMASK_3X3</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tiledata">
+<h3>TileData<a class="headerlink" href="#tiledata" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">TileData</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">Ref</span><span class="o">&lt;</span><span class="n">Texture</span><span class="o">&gt;</span> <span class="n">texture</span><span class="p">;</span>
+    <span class="n">Ref</span><span class="o">&lt;</span><span class="n">Texture</span><span class="o">&gt;</span> <span class="n">normal_map</span><span class="p">;</span>
+    <span class="n">Vector2</span> <span class="n">offset</span><span class="p">;</span>
+    <span class="n">Rect2i</span> <span class="n">region</span><span class="p">;</span>
+    <span class="n">Vector</span><span class="o">&lt;</span><span class="n">ShapeData</span><span class="o">&gt;</span> <span class="n">shapes_data</span><span class="p">;</span>
+    <span class="n">Vector2</span> <span class="n">occluder_offset</span><span class="p">;</span>
+    <span class="n">Ref</span><span class="o">&lt;</span><span class="n">OccluderPolygon2D</span><span class="o">&gt;</span> <span class="n">occluder</span><span class="p">;</span>
+    <span class="n">Vector2</span> <span class="n">navigation_polygon_offset</span><span class="p">;</span>
+    <span class="n">Ref</span><span class="o">&lt;</span><span class="n">NavigationPolygon</span><span class="o">&gt;</span> <span class="n">navigation_polygon</span><span class="p">;</span>
+    <span class="n">Ref</span><span class="o">&lt;</span><span class="n">ShaderMaterial</span><span class="o">&gt;</span> <span class="n">material</span><span class="p">;</span>
+    <span class="n">TileMode</span> <span class="n">tile_mode</span><span class="p">;</span>
+    <span class="n">Color</span> <span class="n">modulate</span><span class="p">;</span>
+    <span class="n">AutotileData</span> <span class="n">autotile_data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">z_index</span><span class="p">;</span>
+
+    <span class="c1">// Default modulate for back-compat</span>
+    <span class="k">explicit</span> <span class="nf">TileData</span><span class="p">()</span> <span class="o">:</span>
+            <span class="n">tile_mode</span><span class="p">(</span><span class="n">SINGLE_TILE</span><span class="p">),</span>
+            <span class="n">modulate</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">z_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>See also <a class="reference internal" href="#shape-data"><span>ShapeData</span></a>, <a class="reference internal" href="#autotile-data"><span>AutotileData</span></a>.</p>
+<ul class="simple">
+<li>OccluderPolygon2D</li>
+</ul>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">OccluderPolygon2D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Resource</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">OccluderPolygon2D</span><span class="p">,</span> <span class="n">Resource</span><span class="p">);</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">enum</span> <span class="n">CullMode</span> <span class="p">{</span>
+        <span class="n">CULL_DISABLED</span><span class="p">,</span>
+        <span class="n">CULL_CLOCKWISE</span><span class="p">,</span>
+        <span class="n">CULL_COUNTER_CLOCKWISE</span>
+    <span class="p">};</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">RID</span> <span class="n">occ_polygon</span><span class="p">;</span>
+    <span class="n">PoolVector</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="o">&gt;</span> <span class="n">polygon</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">closed</span><span class="p">;</span>
+    <span class="n">CullMode</span> <span class="n">cull</span><span class="p">;</span>
+
+    <span class="k">mutable</span> <span class="n">Rect2</span> <span class="n">item_rect</span><span class="p">;</span>
+    <span class="k">mutable</span> <span class="kt">bool</span> <span class="n">rect_cache_dirty</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>NavigationPolygon</li>
+</ul>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NavigationPolygon</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Resource</span> <span class="p">{</span>
+    <span class="n">GDCLASS</span><span class="p">(</span><span class="n">NavigationPolygon</span><span class="p">,</span> <span class="n">Resource</span><span class="p">);</span>
+
+    <span class="n">PoolVector</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="o">&gt;</span> <span class="n">vertices</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">Polygon</span> <span class="p">{</span>
+            <span class="n">Vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">indices</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="n">Vector</span><span class="o">&lt;</span><span class="n">Polygon</span><span class="o">&gt;</span> <span class="n">polygons</span><span class="p">;</span>
+    <span class="n">Vector</span><span class="o">&lt;</span><span class="n">PoolVector</span><span class="o">&lt;</span><span class="n">Vector2</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">outlines</span><span class="p">;</span>
+
+    <span class="k">mutable</span> <span class="n">Rect2</span> <span class="n">item_rect</span><span class="p">;</span>
+    <span class="k">mutable</span> <span class="kt">bool</span> <span class="n">rect_cache_dirty</span><span class="p">;</span>
     <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>

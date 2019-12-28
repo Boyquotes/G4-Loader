@@ -59,8 +59,8 @@ Where *shapes* are defined as collision shape, and region must be the sprite are
 
 TODO: sprite
 
-Loader
-------
+Data in TileSet Loader
+----------------------
 
 Class TileSet
 _____________
@@ -92,6 +92,8 @@ scene/resources/tile_set.h
         ...
     }
 ..
+
+.. _shape-data:
 
 ShapeData
 _________
@@ -251,6 +253,122 @@ scene/resources/concave_polygon_shape_2d.h
 
         real_t length;
         bool slips_on_slope;
+        ...
+    }
+..
+
+.. _autotile-data:
+
+AutotileData
+____________
+
+.. code-block:: cpp
+
+    struct AutotileData {
+        BitmaskMode bitmask_mode;
+        Size2 size;
+        int spacing;
+        Vector2 icon_coord;
+        Map<Vector2, uint32_t> flags;
+        Map<Vector2, Ref<OccluderPolygon2D> > occluder_map;
+        Map<Vector2, Ref<NavigationPolygon> > navpoly_map;
+        Map<Vector2, int> priority_map;
+        Map<Vector2, int> z_index_map;
+
+        // Default size to prevent invalid value
+        explicit AutotileData() :
+                bitmask_mode(BITMASK_2X2),
+                size(64, 64),
+                spacing(0),
+                icon_coord(0, 0) {}
+    };
+..
+
+where BitmaskMode is also defined in tile_set.h
+
+.. code-block:: cpp
+
+    enum BitmaskMode {
+        BITMASK_2X2,
+        BITMASK_3X3_MINIMAL,
+        BITMASK_3X3
+    };
+..
+
+TileData
+________
+
+.. code-block:: cpp
+
+    struct TileData {
+        String name;
+        Ref<Texture> texture;
+        Ref<Texture> normal_map;
+        Vector2 offset;
+        Rect2i region;
+        Vector<ShapeData> shapes_data;
+        Vector2 occluder_offset;
+        Ref<OccluderPolygon2D> occluder;
+        Vector2 navigation_polygon_offset;
+        Ref<NavigationPolygon> navigation_polygon;
+        Ref<ShaderMaterial> material;
+        TileMode tile_mode;
+        Color modulate;
+        AutotileData autotile_data;
+        int z_index;
+
+        // Default modulate for back-compat
+        explicit TileData() :
+                tile_mode(SINGLE_TILE),
+                modulate(1, 1, 1),
+                z_index(0) {}
+    };
+..
+
+See also :ref:`shape-data`, :ref:`autotile-data`.
+
+- OccluderPolygon2D
+
+.. code-block:: cpp
+
+    class OccluderPolygon2D : public Resource {
+        GDCLASS(OccluderPolygon2D, Resource);
+
+    public:
+        enum CullMode {
+            CULL_DISABLED,
+            CULL_CLOCKWISE,
+            CULL_COUNTER_CLOCKWISE
+        };
+
+    private:
+        RID occ_polygon;
+        PoolVector<Vector2> polygon;
+        bool closed;
+        CullMode cull;
+
+        mutable Rect2 item_rect;
+        mutable bool rect_cache_dirty;
+        ...
+    }
+..
+
+- NavigationPolygon
+
+.. code-block:: cpp
+
+    class NavigationPolygon : public Resource {
+    	GDCLASS(NavigationPolygon, Resource);
+
+    	PoolVector<Vector2> vertices;
+    	struct Polygon {
+    		Vector<int> indices;
+    	};
+    	Vector<Polygon> polygons;
+    	Vector<PoolVector<Vector2> > outlines;
+
+    	mutable Rect2 item_rect;
+    	mutable bool rect_cache_dirty;
         ...
     }
 ..
