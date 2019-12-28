@@ -7,7 +7,7 @@ TileSet Resource
 
 TileSet file (.tres) composed from 2 major parts.
 
-Part I: referenced resources
+- Part I: referenced resources
 
 ::
 
@@ -28,7 +28,7 @@ The NavigationPolygon and ConvexPolygonShape2D are created with "collition" and
     :width: 800px
 
 
-Part II: tile definition
+- Part II: tile definition
 
 Tiles are defined in "id/porp-name" format, all in "[resource]" section
 
