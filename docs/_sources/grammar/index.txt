@@ -9,3 +9,4 @@ Grammar Reference
    godot_tilemap
    godot_tileset
    godot_autotile
+   g4_tilemap

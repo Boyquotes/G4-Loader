@@ -1,0 +1,10 @@
+Tokens: TileMap
+===============
+
+.. include:: g4/tileset.tokens
+    :literal:
+
+<h4>
+
+.. include:: img/img.inc
+    :literal:

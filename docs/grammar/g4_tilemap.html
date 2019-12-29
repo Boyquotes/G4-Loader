@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Godot TSCN File Format &mdash; G4 Loader 0.1.0 documentation</title>
+  <title>Tokens: TileMap &mdash; G4 Loader 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,7 @@
   
     <link rel="top" title="G4 Loader 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="Grammar Reference" href="index.html"/>
-        <link rel="next" title="Godot Tilemap Format" href="godot_tilemap.html"/>
-        <link rel="prev" title="Grammar Reference" href="index.html"/> 
+        <link rel="prev" title="Godot Autotile Format" href="godot_autotile.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -93,11 +92,11 @@
 <p class="caption"><span class="caption-text">Grammar reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Grammar Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">Godot TSCN File Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="godot_scene.html">Godot TSCN File Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="godot_tilemap.html">Godot Tilemap Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="godot_tileset.html">Godot TileSet(.tres) File Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="godot_autotile.html">Godot Autotile Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="g4_tilemap.html">Tokens: TileMap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Tokens: TileMap</a></li>
 </ul>
 </li>
 </ul>
@@ -132,7 +131,7 @@
       
           <li><a href="index.html">Grammar Reference</a> &raquo;</li>
       
-    <li>Godot TSCN File Format</li>
+    <li>Tokens: TileMap</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -144,13 +143,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="godot-tscn-file-format">
-<h1>Godot TSCN File Format<a class="headerlink" href="#godot-tscn-file-format" title="Permalink to this headline">¶</a></h1>
-<p>For a general TSCN description, see <a class="reference external" href="https://docs.godotengine.org/en/latest/development/file_formats/tscn.html">Godot Doc: TSCN File Format</a>.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Data format here is try and figured out from TSCN file, only for resource handling
-in loader, not for implementation reference.</p>
+  <div class="section" id="tokens-tilemap">
+<h1>Tokens: TileMap<a class="headerlink" href="#tokens-tilemap" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/**
+ * TileMap Tokens
+ */
+
+// TileSet (.tscn/TileMap) external resource
+
+
+/**
+ * TileSet Tokens
+ */
+// TileSet (.tres) external resource
+</pre></div>
+</div>
+<p>&lt;h4&gt;</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/**
+ * TileSet Tokens (img)
+ */
+
+// TileSet (.tres) external resource
+</pre></div>
 </div>
 </div>
 
@@ -161,10 +175,8 @@ in loader, not for implementation reference.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="godot_tilemap.html" class="btn btn-neutral float-right" title="Godot Tilemap Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="index.html" class="btn btn-neutral" title="Grammar Reference" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="godot_autotile.html" class="btn btn-neutral" title="Godot Autotile Format" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

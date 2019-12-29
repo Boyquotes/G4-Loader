@@ -23,6 +23,10 @@ import sphinx_rtd_theme
 #sys.path.insert(0, os.path.abspath('.'))
 
 # -- General configuration ------------------------------------------------
+# stackoverflow:
+# https://stackoverflow.com/questions/10199233/can-sphinx-link-to-documents-that-are-not-located-in-directories-below-the-root
+sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../g4'))
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
