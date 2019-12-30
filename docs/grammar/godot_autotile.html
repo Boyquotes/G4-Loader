@@ -36,7 +36,7 @@
   
     <link rel="top" title="G4 Loader 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="Grammar Reference" href="index.html"/>
-        <link rel="next" title="Tokens: TileMap" href="g4_tilemap.html"/>
+        <link rel="next" title="G4: TileMap" href="g4_tilemap.html"/>
         <link rel="prev" title="Godot TileSet(.tres) File Format" href="godot_tileset.html"/> 
 
   
@@ -104,7 +104,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="g4_tilemap.html">Tokens: TileMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="g4_tilemap.html">G4: TileMap</a></li>
 </ul>
 </li>
 </ul>
@@ -155,6 +155,51 @@
 <h1>Godot Autotile Format<a class="headerlink" href="#godot-autotile-format" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="about-autotile">
 <h2>1. About Autotile<a class="headerlink" href="#about-autotile" title="Permalink to this headline">¶</a></h2>
+<p>autotile.tres</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>[gd_resource type=&quot;TileSet&quot; load_steps=2 format=2]
+
+[ext_resource path=&quot;res://asserts/tileset.png&quot; type=&quot;Texture&quot; id=1]
+
+[resource]
+0/name = &quot;tileset.png 0&quot;
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 352, 96, 96, 96 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 0
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 256, Vector2( 0, 1 ), 260, Vector2( 0, 2 ), 4, Vector2( 1, 0 ), 320, Vector2( 1, 1 ), 325, Vector2( 1, 2 ), 5, Vector2( 2, 0 ), 64, Vector2( 2, 1 ), 65, Vector2( 2, 2 ), 1 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 32, 32 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
+</pre></div>
+</div>
+<p>scene/autotiles</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>[gd_scene load_steps=3 format=2]
+
+[ext_resource path=&quot;res://autoset.tres&quot; type=&quot;TileSet&quot; id=1]
+[ext_resource path=&quot;res://tset1.tres&quot; type=&quot;TileSet&quot; id=2]
+
+[node name=&quot;root&quot; type=&quot;Node2D&quot;]
+
+[node name=&quot;autotiles&quot; type=&quot;TileMap&quot; parent=&quot;.&quot;]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 2, 65536, 0, 131072, 65537, 0, 131074, 131074, 0, 0, 131075, 0, 1, 131076, 0, 2, 196610, 0, 65536, 196611, 0, 65537, 196612, 0, 65538, 262146, 0, 131072, 262147, 0, 131073, 262148, 0, 131074 )
+
+[node name=&quot;TileMap&quot; type=&quot;TileMap&quot; parent=&quot;.&quot;]
+...
+</pre></div>
+</div>
 </div>
 <div class="section" id="file-format-tres">
 <h2>2. File Format (.tres)<a class="headerlink" href="#file-format-tres" title="Permalink to this headline">¶</a></h2>
@@ -172,7 +217,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="g4_tilemap.html" class="btn btn-neutral float-right" title="Tokens: TileMap" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="g4_tilemap.html" class="btn btn-neutral float-right" title="G4: TileMap" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="godot_tileset.html" class="btn btn-neutral" title="Godot TileSet(.tres) File Format" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
