@@ -1,10 +1,14 @@
+G4: TileMap
+===========
+
 Tokens: TileMap
-===============
+---------------
 
 .. include:: g4/tileset.tokens
     :literal:
 
-<h4>
+Grammar: TileMap
+----------------
 
-.. include:: img/img.inc
+.. include:: g4/tilemap.g4
     :literal:
