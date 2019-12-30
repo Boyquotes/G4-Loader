@@ -97,9 +97,13 @@
 <li class="toctree-l2"><a class="reference internal" href="godot_tilemap.html">Godot Tilemap Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="godot_tileset.html">Godot TileSet(.tres) File Format</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Godot Autotile Format</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#about-autotile">1. About Autotile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autotile-example">1.  Autotile Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tile-data">tile_data</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#file-format-tres">2. File Format (.tres)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#tile-id">2.1 Tile Id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auto-tile-example">2.1 Auto Tile Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tile-id">2.2 Tile Id</a></li>
 </ul>
 </li>
 </ul>
@@ -153,8 +157,78 @@
             
   <div class="section" id="godot-autotile-format">
 <h1>Godot Autotile Format<a class="headerlink" href="#godot-autotile-format" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="about-autotile">
-<h2>1. About Autotile<a class="headerlink" href="#about-autotile" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="autotile-example">
+<h2>1.  Autotile Example<a class="headerlink" href="#autotile-example" title="Permalink to this headline">¶</a></h2>
+<p>scene/autotiles</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>[gd_scene load_steps=3 format=2]
+
+[ext_resource path=&quot;res://autoset.tres&quot; type=&quot;TileSet&quot; id=1]
+[ext_resource path=&quot;res://tset1.tres&quot; type=&quot;TileSet&quot; id=2]
+
+[node name=&quot;root&quot; type=&quot;Node2D&quot;]
+
+[node name=&quot;autotiles&quot; type=&quot;TileMap&quot; parent=&quot;.&quot;]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 2, 65536, 0, 131072, 65537, 0, 131074, 131074, 0, 0, 131075, 0, 1, 131076, 0, 2, 196610, 0, 65536, 196611, 0, 65537, 196612, 0, 65538, 262146, 0, 131072, 262147, 0, 131073, 262148, 0, 131074 )
+
+[node name=&quot;TileMap&quot; type=&quot;TileMap&quot; parent=&quot;.&quot;]
+...
+</pre></div>
+</div>
+<div class="section" id="tile-data">
+<h3>tile_data<a class="headerlink" href="#tile-data" title="Permalink to this headline">¶</a></h3>
+<p>TODO</p>
+<table class='reference'>
+    <tr><th>Ndoe Data</th>
+        <th>Data Formatted</th>
+        <th>Details</th>
+    </tr>
+    <tr><td>tile_set = ExtResource( 2 )</td>
+        <td>ExtResource(2) = tset1.tres</td>
+        <td>Tileset</td>
+    </tr>
+    <tr><td>PoolIntArray[0:2]<br>
+            0, 1, 0
+        </td>
+        <td>0: [x: 0, y: 0] - PosKey<br>
+            1: [id: 1]      - Cell.struct.id<br>
+            0: [auto-x: 0, auto-y: 0]<br>
+               -Cell.struct.autox/y
+        </td>
+        <td>Postion: x, y = 0, 0<br>
+            Tileset's tile id: 1<br>
+            Cell's auto tile id x, y = 0, 0
+        </td>
+    </tr>
+    <tr><td>PoolIntArray[3:5]<br>
+            1, 1073741824, 0<br>
+        </td>
+        <td>
+            0: [x: 1, y: 0] - PosKey<br>
+            1: [id: 0]      - Cell.struct.id<br>
+            [fliph: 0, flipv: 1]<br>
+            0: [auto-x: 0, auto-y: 0]
+        </td>
+        <td>
+            Postion: x, y = 1, 0<br>
+            Tileset's tile id = 0  ( 1073741824 = 4000 0000h )<br>
+            flip (x/h, y/v) = 0, 1 ( Why not 04h? )<br>
+        </td>
+    </tr>
+    <tr><td>... </td>
+        <td>1610612736</br>65536</td>
+        <td>6000 0000h: id, h, v = 0, 1, 1 ? <br>
+            0001 0000h: pos(x, y) = 0, 1</td>
+    </tr>
+</table><a class="reference internal image-reference" href="../_images/001-tilemap1.png"><img alt="../_images/001-tilemap1.png" src="../_images/001-tilemap1.png" style="width: 800px;" /></a>
+</div>
+</div>
+<div class="section" id="file-format-tres">
+<h2>2. File Format (.tres)<a class="headerlink" href="#file-format-tres" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="auto-tile-example">
+<h3>2.1 Auto Tile Example<a class="headerlink" href="#auto-tile-example" title="Permalink to this headline">¶</a></h3>
 <p>autotile.tres</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>[gd_resource type=&quot;TileSet&quot; load_steps=2 format=2]
 
@@ -182,29 +256,9 @@
 0/z_index = 0
 </pre></div>
 </div>
-<p>scene/autotiles</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>[gd_scene load_steps=3 format=2]
-
-[ext_resource path=&quot;res://autoset.tres&quot; type=&quot;TileSet&quot; id=1]
-[ext_resource path=&quot;res://tset1.tres&quot; type=&quot;TileSet&quot; id=2]
-
-[node name=&quot;root&quot; type=&quot;Node2D&quot;]
-
-[node name=&quot;autotiles&quot; type=&quot;TileMap&quot; parent=&quot;.&quot;]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 32, 32 )
-format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 0, 2, 65536, 0, 131072, 65537, 0, 131074, 131074, 0, 0, 131075, 0, 1, 131076, 0, 2, 196610, 0, 65536, 196611, 0, 65537, 196612, 0, 65538, 262146, 0, 131072, 262147, 0, 131073, 262148, 0, 131074 )
-
-[node name=&quot;TileMap&quot; type=&quot;TileMap&quot; parent=&quot;.&quot;]
-...
-</pre></div>
 </div>
-</div>
-<div class="section" id="file-format-tres">
-<h2>2. File Format (.tres)<a class="headerlink" href="#file-format-tres" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="tile-id">
-<h3>2.1 Tile Id<a class="headerlink" href="#tile-id" title="Permalink to this headline">¶</a></h3>
+<h3>2.2 Tile Id<a class="headerlink" href="#tile-id" title="Permalink to this headline">¶</a></h3>
 <p>...</p>
 </div>
 </div>
