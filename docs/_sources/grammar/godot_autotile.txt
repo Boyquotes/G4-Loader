@@ -79,7 +79,7 @@ TODO
     </table>
 ..
 
-.. image:: img/001-tilemap1.png
+.. image:: img/003-autotile.png
     :width: 800px
 
 

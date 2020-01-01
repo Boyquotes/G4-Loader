@@ -55,8 +55,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'G4 Loader'
-copyright = '2019, Odys Zhou'
-author = 'Odys Zhou'
+copyright = '2020, Odys Zhou'
+author = 'odys-z.github.io'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

@@ -50,7 +50,7 @@ help:
 # reference
 # https://www.docslikecode.com/articles/github-pages-python-sphinx/
 # https://github.com/sphinx-doc/sphinx/issues/3382#issuecomment-470772316
-github:
+gpage:
 	@make html
 	@cp -a build/html/. ../docs
 
