@@ -28,6 +28,8 @@ import sphinx_rtd_theme
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../g4'))
 
+sys.path.append(os.path.abspath("./_ext"))
+
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
@@ -36,7 +38,8 @@ sys.path.insert(0, os.path.abspath('../g4'))
 # ones.
 extensions = [
     'sphinx.ext.mathjax',
-    "sphinx_rtd_theme",
+    'sphinx_rtd_theme',
+    'ods2rst',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
