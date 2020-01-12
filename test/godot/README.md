@@ -13,6 +13,6 @@ assets/ghost-character
 [Isometric Assets - Lite](https://jaqmarti.itch.io/isometric-assets-lite)
 by [Jaqmarti](https://jaqmarti.itch.io/)
 
-assets/ghost-character
+assets/isometric assert-lite
 
-<img src='./asserts/'></img>
+<img src='./asserts/isometric%20assets-lite/Grass-Spritesheet_Blocks.png'></img>
