@@ -1,8 +1,13 @@
 [gd_scene load_steps=2 format=2]
 
-[sub_resource type="TileSet" id=1]
+[ext_resource path="res://iso_grassland.tres" type="TileSet" id=1]
 
 [node name="basic" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 1 )
+[node name="grasstiles" type="TileMap" parent="."]
+scale = Vector2( 0.25, 0.25 )
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 370, 187 )
+format = 1
+tile_data = PoolIntArray( -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 1, 0, -65536, 0, 0, 0, 0, 0 )
