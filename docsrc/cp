@@ -1,3 +1,4 @@
-rm -rf ../../pages.github/odys-z.github.io/javadoc/G4-loader/sphinx
-mkdir ../../pages.github/odys-z.github.io/javadoc/G4-loader/sphinx
-mv build/html/* ../../pages.github/odys-z.github.io/javadoc/G4-loader/sphinx -f
+# TODO remove
+# rm -rf ../../pages.github/odys-z.github.io/javadoc/G4-loader/sphinx
+# mkdir ../../pages.github/odys-z.github.io/javadoc/G4-loader/sphinx
+# mv build/html/* ../../pages.github/odys-z.github.io/javadoc/G4-loader/sphinx -f

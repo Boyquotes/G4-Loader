@@ -28,6 +28,7 @@ Contents:
    :name: sec-general
 
    general/index
+   misc/index
 
 .. toctree::
    :maxdepth: 1

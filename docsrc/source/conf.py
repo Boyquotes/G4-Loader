@@ -39,7 +39,6 @@ sys.path.append(os.path.abspath("./_ext"))
 extensions = [
     'sphinx.ext.mathjax',
     'sphinx_rtd_theme',
-    'ods2rst',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

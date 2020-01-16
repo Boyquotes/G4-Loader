@@ -1,6 +1,9 @@
 Godot Resource Loader
 =====================
 
+Introduction
+------------
+
 Godot text resource loading are handled by ResourceFormatLoaderText, one of
 ResourceFormatLoader subclasses.
 
@@ -70,3 +73,8 @@ In core.class_db.cpp:
 ..
 
 That means all resource loader are dynamically bound.
+
+Reference: Resource Loaders
+---------------------------
+
+.. hotable:: godot/res/resources2d.ods
