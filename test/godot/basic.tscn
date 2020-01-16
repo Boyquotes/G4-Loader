@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://iso_grassland.tres" type="TileSet" id=1]
+[ext_resource path="res://blob1.tscn" type="PackedScene" id=2]
 
 [node name="basic" type="Node2D"]
 
@@ -11,3 +12,5 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 370, 187 )
 format = 1
 tile_data = PoolIntArray( -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 1, 0, -65536, 0, 0, 0, 0, 0 )
+
+[node name="blob1" parent="." instance=ExtResource( 2 )]

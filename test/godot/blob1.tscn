@@ -37,6 +37,8 @@ tracks/0/keys = {
 }
 
 [node name="blob1" type="Node2D"]
+position = Vector2( 0, 8 )
+scale = Vector2( 0.1, 0.1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -186 )
