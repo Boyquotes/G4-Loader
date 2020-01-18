@@ -1,4 +1,4 @@
-package io.oz.g4.godot_2d.map;
+package io.oz.g4.godot_2d.gmap;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapRenderer;

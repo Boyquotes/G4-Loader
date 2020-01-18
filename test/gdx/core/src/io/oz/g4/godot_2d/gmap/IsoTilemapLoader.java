@@ -1,4 +1,4 @@
-package io.oz.g4.godot_2d.map;
+package io.oz.g4.godot_2d.gmap;
 
 
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -9,9 +9,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
-public class IsoTilemapLoader<P extends AssetLoaderParameters<Parameters>> extends AsynchronousAssetLoader<IsoTilemap, P> {
-
-	public static class Parameters extends TilemapLoader.Parameters { }
+public class IsoTilemapLoader<P extends AssetLoaderParameters<Tilemap>> extends AsynchronousAssetLoader<Tilemap, P> {
 
 	public IsoTilemapLoader(FileHandleResolver resolver) {
 		super(resolver);
