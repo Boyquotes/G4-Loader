@@ -19,7 +19,7 @@
 *.tar.gz
 *.rar
 
-#godot
+# godot
 .import
 *.import
 
