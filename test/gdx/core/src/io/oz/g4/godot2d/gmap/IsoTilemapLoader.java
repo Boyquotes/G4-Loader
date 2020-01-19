@@ -1,4 +1,4 @@
-package io.oz.g4.godot_2d.gmap;
+package io.oz.g4.godot2d.gmap;
 
 
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -13,6 +13,15 @@ public class IsoTilemapLoader<P extends AssetLoaderParameters<Tilemap>> extends 
 
 	public IsoTilemapLoader(FileHandleResolver resolver) {
 		super(resolver);
+	}
+
+	public IsoTilemapLoader() {
+		super(new FileHandleResolver() {
+			@Override
+			public FileHandle resolve(String fileName) {
+				return null;
+			}
+		});
 	}
 
 	/**
@@ -51,6 +60,10 @@ public class IsoTilemapLoader<P extends AssetLoaderParameters<Tilemap>> extends 
 	 */
 	@Override
 	public IsoTilemap loadSync(AssetManager manager, String fileName, FileHandle file, P parameter) {
+		return null;
+	}
+
+	public Tilemap load(String f) {
 		return null;
 	}
 }

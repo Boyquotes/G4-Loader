@@ -1,4 +1,4 @@
-package io.oz.g4.godot_2d.scene;
+package io.oz.g4.godot2d.scene;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;

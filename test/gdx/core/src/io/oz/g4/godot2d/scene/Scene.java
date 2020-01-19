@@ -1,6 +1,6 @@
-package io.oz.g4.godot_2d.scene;
+package io.oz.g4.godot2d.scene;
 
-class Scene extends Node2d {
+class Scene implements Node2d {
 	/**
 	 * Releases all resources of this object.
 	@Override
