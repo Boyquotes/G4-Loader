@@ -1,4 +1,4 @@
-package io.oz.g4.godot_2d.gmap;
+package io.oz.g4.godot2d.gmap;
 
 
 import com.badlogic.gdx.assets.AssetLoaderParameters;

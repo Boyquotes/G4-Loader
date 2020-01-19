@@ -11,26 +11,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.MapRenderer;
 
 import java.util.Iterator;
 
-/**Try tiled resource loading.
- * See tutorial: https://www.gamefromscratch.com/post/2014/04/16/LibGDX-Tutorial-11-Tiled-Maps-Part-1-Simple-Orthogonal-Maps.aspx
+import io.oz.g4.godot2d.gmap.G4MapTileLayer;
+import io.oz.g4.godot2d.gmap.IsoTilemapLoader;
+import io.oz.g4.godot2d.gmap.IsoTilemapRenderer;
+import io.oz.g4.godot2d.gmap.TileSet;
+import io.oz.g4.godot2d.gmap.TileSets;
+import io.oz.g4.godot2d.gmap.Tilemap;
+import io.oz.g4.godot2d.gmap.TilemapTile;
+
+/**Try godot scene loading.
+ * asset: g01/s1.tscn
  */
 public class Scene01 extends ApplicationAdapter implements InputProcessor {
 	SpriteBatch batch;
 	Texture oz;
-	TiledMap tiledMap;
+	Tilemap tileMap;
 	OrthographicCamera camera;
-	TiledMapRenderer tiledMapRenderer;
+	MapRenderer tileMapRenderer;
 
 	float w, h;
 	int ozw, ozh;
@@ -51,35 +52,35 @@ public class Scene01 extends ApplicationAdapter implements InputProcessor {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
 		camera.update();
-		tiledMap = new TmxMapLoader().load("g01/w32h32.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+		tileMap = new IsoTilemapLoader().load("g01/w32h32.tmx");
+		tileMapRenderer = new IsoTilemapRenderer(tileMap);
 
-		MapObjects objs = tiledMap.getLayers().get("static bodies").getObjects();
+		MapObjects objs = tileMap.getLayers().get("static bodies").getObjects();
 		for (MapObject obj: objs) {
 			String s = obj.getName();
 			System.out.println(s);
 		}
 
-		TiledMapTileSets tilesets = tiledMap.getTileSets();
-		for (TiledMapTileSet tset : tilesets) {
+		TileSets tilesets = tileMap.getTileSets();
+		for (TileSet tset : tilesets) {
 			System.out.println(String.format("ts %s size: %s", tset.getName(), tset.size()));
-			Iterator<TiledMapTile> it = tset.iterator();
+			Iterator<TilemapTile> it = tset.iterator();
 			while(it.hasNext()){
-				TiledMapTile mptile = it.next();
+				TilemapTile mptile = it.next();
 				TextureRegion rg = mptile.getTextureRegion();
 				System.out.println(String.format("%s	  xy: %s, %s; wh: %s, %s",
 						mptile.getId(), rg.getRegionX(), rg.getRegionY(), rg.getRegionWidth(), rg.getRegionHeight()));
 			}
 		}
 
-		TiledMapTileLayer tilayer = (TiledMapTileLayer) tiledMap.getLayers().get("tiles01");
+		G4MapTileLayer tilayer = (G4MapTileLayer) tileMap.getLayers().get("tiles01");
 		int tw = tilayer.getWidth();
 		int th = tilayer.getHeight();
 		System.out.println(String.format("w: %s, h: %s", tw, th));
 		for (int r = th - 1; r > 0; r--) {
 			for (int c = 0; c < tw; c ++) {
-				TiledMapTileLayer.Cell cell = tilayer.getCell(c, r);
-				TiledMapTile t = cell.getTile();
+				G4MapTileLayer.Cell cell = tilayer.getCell(c, r);
+				TilemapTile t = cell.getTile();
 				if (t.getId() == 79)
 					System.out.print("   ");
 				else if (t.getId() >= 230)
@@ -102,8 +103,8 @@ public class Scene01 extends ApplicationAdapter implements InputProcessor {
 		camera.update();
 
 
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
+		tileMapRenderer.setView(camera);
+		tileMapRenderer.render();
 
 		batch.begin();
 		batch.draw(oz, w / 2 - ozw, w / 2 - ozh);
@@ -122,9 +123,9 @@ public class Scene01 extends ApplicationAdapter implements InputProcessor {
 			dy = -1;
 
 		if(keycode == Input.Keys.NUM_1)
-			tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
+			tileMap.getLayers().get(0).setVisible(!tileMap.getLayers().get(0).isVisible());
 		if(keycode == Input.Keys.NUM_2)
-			tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+			tileMap.getLayers().get(1).setVisible(!tileMap.getLayers().get(1).isVisible());
 
 		keypress = true;
 		return false;

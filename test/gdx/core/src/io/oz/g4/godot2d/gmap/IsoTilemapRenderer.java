@@ -1,4 +1,4 @@
-package io.oz.g4.godot_2d.gmap;
+package io.oz.g4.godot2d.gmap;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapRenderer;
@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.Matrix4;
  * Godot TileMap renderer.
  */
 public class IsoTilemapRenderer implements MapRenderer {
+	public IsoTilemapRenderer(Tilemap tileMap) {
+
+	}
+
 	/**
 	 * Sets the projection matrix and viewbounds from the given camera. If the camera changes, you have to call this method again.
 	 * The viewbounds are taken from the camera's position and viewport size as well as the scale. This method will only work if
