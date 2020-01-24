@@ -12,11 +12,8 @@ Welcome to G4 Loader's documentation!
 
   .. attention:: G4 Loader is only a prototype for verifying some ideal.
 
-Welcome to the official documentation of G4 Loader, the free and open source
-community-driven 2D game level resource loader.
-The table of contents in the sidebar should let you easily access the documentation
-for your topic of interest. You can also use the search function in the top left
-corner.
+Welcome to the official documentation of G4 Loader, the free and open source 2D
+game level resource loader.
 
 Doc is still up coming.
 
