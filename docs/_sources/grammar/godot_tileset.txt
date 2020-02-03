@@ -325,7 +325,7 @@ ________
     };
 ..
 
-See also :ref:`shape-data`, :ref:`autotile-data`.
+See also :ref:`shape-data`, :ref:`Auto Tile Data<autotile-data>`.
 
 - OccluderPolygon2D
 
